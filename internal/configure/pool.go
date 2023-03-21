@@ -140,11 +140,23 @@ func formatName(dc *topology.DeployConfig) string {
 	return fmt.Sprintf("%s_%s_%d", dc.GetHost(), dc.GetName(), dc.GetReplicasSequence())
 }
 
+// getConfigZones get config zones from yaml
+func getConfigZones(dcs []*topology.DeployConfig) int {
+	kind := dcs[0].GetKind()
+	for _, dc := range dcs {
+		role := dc.GetRole()
+		if role == ROLE_CHUNKSERVER && kind == KIND_CURVEBS {
+			return dc.GetZones()
+		}
+	}
+	return DEFAULT_ZONES_PER_POOL
+}
+
 func createLogicalPool(dcs []*topology.DeployConfig, logicalPool string) (LogicalPool, []Server) {
 	var zone string
 	copysets := 0
 	servers := []Server{}
-	zones := DEFAULT_ZONES_PER_POOL
+	zones := getConfigZones(dcs)
 	nextZone := genNextZone(zones)
 	physicalPool := logicalPool
 	kind := dcs[0].GetKind()

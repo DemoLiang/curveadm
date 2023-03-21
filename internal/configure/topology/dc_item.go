@@ -285,6 +285,12 @@ var (
 		true,
 		nil,
 	)
+	CONFIG_ZONES = itemset.insert(
+		"zones",
+		REQUIRE_POSITIVE_INTEGER,
+		true,
+		nil,
+	)
 )
 
 func (i *item) Key() string {

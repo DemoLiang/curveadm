@@ -142,6 +142,7 @@ func (dc *DeployConfig) GetS3Address() string        { return dc.getString(CONFI
 func (dc *DeployConfig) GetS3BucketName() string     { return dc.getString(CONFIG_S3_BUCKET_NAME) }
 func (dc *DeployConfig) GetEnableRDMA() bool         { return dc.getBool(CONFIG_ENABLE_RDMA) }
 func (dc *DeployConfig) GetEnableRenameAt2() bool    { return dc.getBool(CONFIG_ENABLE_RENAMEAT2) }
+func (dc *DeployConfig) GetZones() int               { return dc.getInt(CONFIG_COPYSETS) }
 func (dc *DeployConfig) GetEnableChunkfilePool() bool {
 	return dc.getBool(CONFIG_ENABLE_CHUNKFILE_POOL)
 }
